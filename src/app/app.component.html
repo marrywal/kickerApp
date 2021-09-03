@@ -1,3 +1,37 @@
-<div class="bg-blue-500 p-10 text-center text-lg dark:text-red">
-  title
-</div>
+<!-- <mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Custom Toolbar</span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <span>Second Line</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <span>Third Line</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+ -->
+
+<header class="flex justify-between px-10 py-5 border-b-2 border-black-600">
+  <div class="logo" routerLink="/">
+    MAYFLOWER
+  </div>
+  <div class="navigation">
+    <nav>
+      <ul class="flex">
+        <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+        <li><a routerLink="/match" routerLinkActive="active">Neues Match</a></li>
+        <li><a routerLink="/game" routerLinkActive="active">Neues Spiel</a></li>
+        <li><a routerLink="/players" routerLinkActive="active">Spieler</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<router-outlet></router-outlet>
