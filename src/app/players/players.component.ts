@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Player } from 'src/app/interfaces/player';
+import { PlayersDialogComponent } from './players-dialog/players-dialog.component';
 
 @Component({
   selector: 'app-players',
@@ -33,11 +35,26 @@ export class PlayersComponent implements OnInit {
 
   dataSource = this.players;
   clickedRows = new Set<Player>();
+  newPlayer: any;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
 
   }
+
+  createNewPlayer() {
+    this.dialog.open(PlayersDialogComponent);
+  }
+
+  
+  editPlayer(id: number) {
+    this.dialog.open(PlayersDialogComponent, {
+      data: {
+        name: 'Max',
+      }
+    });
+  }
+  
 
 }

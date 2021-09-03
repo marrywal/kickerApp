@@ -1,5 +1,7 @@
 <div class="content-center" id="players">
 
+  <button mat-raised-button (click)="createNewPlayer()" color="primary">Neuer Spieler</button>
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="players">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -19,37 +21,9 @@
         *matRowDef="let row; columns: tableHeader;"
     ></tr>
   </table>
-
-  <div>
-    <h3>
-      Click Log
-    </h3>
-  </div>
-  
-  <div *ngIf="!clickedRows.size">
-    Clicked rows will be logged here
-  </div>
   
   <ul>
     <li *ngFor="let clickedRow of clickedRows">
       Clicked on {{clickedRow.name}}
     </li>
   </ul>
-
-  <form class="player-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Name</mat-label>
-      <input matInput>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Standort</mat-label>
-      <mat-select>
-        <mat-option value="muc">München</mat-option>
-        <mat-option value="wue">Würzburg</mat-option>
-        <mat-option value="ber">Berlin</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <button mat-raised-button color="primary">Primary</button>
-  </form>

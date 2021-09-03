@@ -10,7 +10,8 @@ import { GameComponent } from './game/game.component';
 import { MatchComponent } from './match/match.component';
 import { StartComponent } from './start/start.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material-module'
+import { MaterialModule } from './material-module';
+import { PlayersDialogComponent } from './players/players-dialog/players-dialog.component'
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MaterialModule } from './material-module'
     PlayersComponent,
     GameComponent,
     MatchComponent,
-    StartComponent
+    StartComponent,
+    PlayersDialogComponent
   ],
   imports: [
     BrowserModule,
