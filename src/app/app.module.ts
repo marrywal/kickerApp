@@ -12,6 +12,7 @@ import { StartComponent } from './start/start.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { PlayersDialogComponent } from './players/players-dialog/players-dialog.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,13 +24,15 @@ import { PlayersDialogComponent } from './players/players-dialog/players-dialog.
     GameComponent,
     MatchComponent,
     StartComponent,
-    PlayersDialogComponent
+    PlayersDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatTable } from '@angular/material/table';
 import { Player } from 'src/app/interfaces/player';
+import { getPlayers } from '../mocks/players';
 import { PlayersDialogComponent } from './players-dialog/players-dialog.component';
 
 @Component({
@@ -10,51 +12,66 @@ import { PlayersDialogComponent } from './players-dialog/players-dialog.componen
 })
 export class PlayersComponent implements OnInit {
 
-  players: Player[] = [
-    {
-      id: 1,
-      name: 'Max Mustermann',
-      city: 'München'
-    },
-    {
-      id: 2,
-      name: 'Klaus Kleber',
-      city: 'Würzburg'
-    },
-    {
-      id: 3,
-      name: 'Pippi Langstrumpf',
-      city: 'Berlin'
-    }
-  ];
+  playersList: Player[] = [];
 
   tableHeader: string[] = [
     'name',
-    'city'
+    'city',
+    'actions'
   ]
 
-  dataSource = this.players;
   clickedRows = new Set<Player>();
   newPlayer: any;
 
-  constructor(public dialog: MatDialog) {}
+  @ViewChild(MatTable) table!: MatTable<Player>;
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
-
+    this.playersList = getPlayers();
   }
 
-  createNewPlayer() {
-    this.dialog.open(PlayersDialogComponent);
-  }
+  creaeteEditPlayer(player?: Player) {
+    const newPlayer: Player = {
+      id: 0,
+      name: '',
+      city: ''
+    }
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = player ? player : newPlayer;
 
-  
-  editPlayer(id: number) {
-    this.dialog.open(PlayersDialogComponent, {
-      data: {
-        name: 'Max',
+    const dialogRef = this.dialog.open(PlayersDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      data => {
+        if (data.id === 0) {
+          this.createPlayer(data);
+        } else {
+          this.editPlayer(data);
+        }
+        console.log(this.playersList);
       }
-    });
+    );
   }
-  
 
+  deletePlayer(player: Player) {
+    const i = this.playersList.indexOf(player);
+    if (i !== -1) {
+      this.playersList.splice(i, 1);
+    }
+    this.table.renderRows();
+  }
+
+  private createPlayer(player: Player) {
+    this.playersList.push(player);
+    this.table.renderRows();
+  }
+
+  private editPlayer(player: Player) {
+    const i = this.playersList.indexOf(player);
+    if (i !== -1) {
+      this.playersList[i] = player;
+    }
+  }
 }

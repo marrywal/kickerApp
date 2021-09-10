@@ -1,8 +1,8 @@
 <div class="content-center" id="players">
 
-  <button mat-raised-button (click)="createNewPlayer()" color="primary">Neuer Spieler</button>
+  <button mat-raised-button (click)="creaeteEditPlayer()" color="primary">Neuer Spieler</button>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="players">
+  <table mat-table [dataSource]="playersList" class="mat-elevation-z8" id="players">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">{{element.name}}</td>
@@ -12,11 +12,18 @@
       <th mat-header-cell *matHeaderCellDef>Standort</th>
       <td mat-cell *matCellDef="let element">{{element.city}}</td>
     </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row" >
+           <button mat-button (click)="creaeteEditPlayer(row)">Bearbeiten</button>
+           <button mat-button (click)="deletePlayer(row)">Löschen</button>
+      </td>
+    </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="tableHeader"></tr>
     <tr
         mat-row
-        (click)="clickedRows.add(row)"
         [class.demo-row-is-clicked]="clickedRows.has(row)"
         *matRowDef="let row; columns: tableHeader;"
     ></tr>

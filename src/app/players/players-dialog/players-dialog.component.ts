@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Player } from 'src/app/interfaces/player';
 
 @Component({
@@ -9,6 +9,19 @@ import { Player } from 'src/app/interfaces/player';
 })
 export class PlayersDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Player) {}
+  constructor(
+    private dialogRef: MatDialogRef<PlayersDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Player
+  ) { }
+
+  save() {
+    // TODO: add validation on save
+    this.dialogRef.close(this.data);
+  }
+
+  close() {
+    // TODO: handle error on close
+    this.dialogRef.close();
+  }
 
 }

@@ -1,26 +1,30 @@
-<h1 mat-dialog-title>Neuer Spieler</h1>
-<div mat-dialog-content>
-    <form class="player-form">
+<h1 mat-dialog-title>{{ data ? 'Spieler bearbeiten' : 'Neuer Spieler' }}</h1>
+<form class="player-form" #playersForm="ngForm">
+    <div mat-dialog-content>
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Name</mat-label>
-                <input matInput>
+                <input matInput required cdkFocusInitial [(ngModel)]="data.name" name="name" #name="ngModel">
+                <mat-error *ngIf="name.invalid">Pflichtfeld</mat-error>
             </mat-form-field>
         </div>
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Standort</mat-label>
-                <mat-select>
-                    <mat-option value="muc">München</mat-option>
-                    <mat-option value="wue">Würzburg</mat-option>
-                    <mat-option value="ber">Berlin</mat-option>
+                <mat-select required
+                [(ngModel)]="data.city" name="city"
+                #city="ngModel">
+                    <mat-option value="München">München</mat-option>
+                    <mat-option value="Würzburg">Würzburg</mat-option>
+                    <mat-option value="Berlin">Berlin</mat-option>
                 </mat-select>
+                <mat-error *ngIf="city.invalid">Pflichtfeld</mat-error>
             </mat-form-field>
         </div>
-    </form>
-</div>
+    </div>
 
-<mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Abbrechen</button>
-    <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial color="primary">Speichern</button>
-</mat-dialog-actions>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close (click)="close()">Abbrechen</button>
+        <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)="save()">Speichern</button>
+    </mat-dialog-actions>
+</form>
