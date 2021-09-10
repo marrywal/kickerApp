@@ -1,4 +1,6 @@
-<h1 mat-dialog-title>{{ data ? 'Spieler bearbeiten' : 'Neuer Spieler' }}</h1>
+<h1 mat-dialog-title>
+    <mat-icon>{{ data.name ? 'edit' : 'add' }}</mat-icon>
+    {{ data.name ? 'Spieler bearbeiten' : 'Neuer Spieler' }}</h1>
 <form class="player-form" #playersForm="ngForm">
     <div mat-dialog-content>
         <div>

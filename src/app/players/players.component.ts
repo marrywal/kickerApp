@@ -18,7 +18,7 @@ export class PlayersComponent implements OnInit {
     'name',
     'city',
     'actions'
-  ]
+  ];
 
   clickedRows = new Set<Player>();
   newPlayer: any;
@@ -34,9 +34,7 @@ export class PlayersComponent implements OnInit {
   creaeteEditPlayer(player?: Player) {
     const newPlayer: Player = {
       id: 0,
-      name: '',
-      city: ''
-    }
+    };
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data = player ? player : newPlayer;
