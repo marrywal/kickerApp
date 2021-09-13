@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import { Player } from 'src/app/interfaces/player';
-import { getPlayers } from '../mocks/players';
+import { Player } from 'src/interfaces/player';
+import { getPlayers } from '../../mocks/players';
 import { PlayersDialogComponent } from './players-dialog/players-dialog.component';
 
 @Component({

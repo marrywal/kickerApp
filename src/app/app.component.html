@@ -1,21 +1,16 @@
-<p>
-  <mat-toolbar color="primary" id="header">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span routerLink="/start">Mayflower</span>
-      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-      <li><a routerLink="/match" routerLinkActive="active">Matches</a></li>
-      <li><a routerLink="/game" routerLinkActive="active">Neues Spiel</a></li>
-      <li><a routerLink="/players" routerLinkActive="active">Spieler</a></li>
-    <span class="header-spacer"></span>
-    <button mat-icon-button>
-      <mat-icon>man</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon>settings</mat-icon>
-    </button>
-  </mat-toolbar>
-</p>
+<mat-toolbar color="primary" id="header" *ngIf="router.url != '/start'">
+  <span routerLink="/start">Mayflower</span>
+  <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+  <li><a routerLink="/match" routerLinkActive="active">Matches</a></li>
+  <!-- <li><a routerLink="/game" routerLinkActive="active">Neues Spiel</a></li> -->
+  <li><a routerLink="/players" routerLinkActive="active">Spieler</a></li>
+  <span class="header-spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>person</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon>settings</mat-icon>
+  </button>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

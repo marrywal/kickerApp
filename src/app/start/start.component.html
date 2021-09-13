@@ -1,6 +1,25 @@
-<nav>
-    <ul class="flex">
-        <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-        <li><a routerLink="/match" routerLinkActive="active">Neues Match</a></li>
-    </ul>
-</nav>
+<div class="outher" id="start">
+    <div class="box">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    <img class="logo" src="../../images/Mayflower-Logo-880.png" alt="Mayflower Logo">
+                </mat-card-title>
+                <mat-card-subtitle>KickerApp</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="buttonBox">
+                    <button mat-raised-button color="primary" routerLink="/dashboard" routerLinkActive="active">
+                        <mat-icon>dashboard</mat-icon>
+                        Dashboard
+                    </button>
+                    <mat-divider></mat-divider>
+                    <button mat-raised-button color="primary" routerLink="/match" routerLinkActive="active">
+                        <mat-icon>add</mat-icon>
+                        Neues Match
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

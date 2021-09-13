@@ -2,8 +2,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import { Match } from '../interfaces/match';
-import { getMatches } from '../mocks/matches';
+import { Match } from '../../interfaces/match';
+import { getMatches } from '../../mocks/matches';
 import { PlayersDialogComponent } from '../players/players-dialog/players-dialog.component';
 
 @Component({
