@@ -9,14 +9,17 @@
             </mat-card-header>
             <mat-card-content>
                 <div class="buttonBox">
-                    <button mat-raised-button color="primary" routerLink="/dashboard" routerLinkActive="active">
+                    <button mat-raised-button color="primary" routerLink="/match/0">
+                        <mat-icon>add</mat-icon>
+                        Neues Match
+                    </button>
+                    <button mat-raised-button color="primary" routerLink="/dashboard">
                         <mat-icon>dashboard</mat-icon>
                         Dashboard
                     </button>
-                    <mat-divider></mat-divider>
-                    <button mat-raised-button color="primary" routerLink="/match" routerLinkActive="active">
-                        <mat-icon>add</mat-icon>
-                        Neues Match
+                    <button mat-raised-button color="primary" routerLink="/players">
+                        <mat-icon>people</mat-icon>
+                        Spieler
                     </button>
                 </div>
             </mat-card-content>

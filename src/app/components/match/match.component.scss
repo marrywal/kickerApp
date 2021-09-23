@@ -1,0 +1,34 @@
+@import "../../../style/colors";
+
+table {
+    width: 100%;
+}
+
+tr.detail-row {
+    height: 0;
+}
+
+.element-row td {
+    border-bottom-width: 0;
+}
+
+.element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.element-description {
+    width: 100%;
+    background-color: $dark-focused;
+    margin-bottom: 15px;
+
+    .details {
+        padding: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        &:not(:last-of-type) {
+            border-bottom: 1px solid $dark-dividers;
+        }
+    }
+}

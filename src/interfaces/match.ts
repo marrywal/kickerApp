@@ -2,23 +2,33 @@ import { Player } from "./player";
 
 export interface Match {
     id: number;
-    dateTime?: Date;
+    date?: Date;
     city?: string;
     mode?: string;
-    endResult?: string;
-    teamOne?: Player[];
-    teamTwo?: Player[];
+    teamOne?: Team;
+    teamTwo?: Team;
     games?: Game[];
+}
+
+export interface Team {
+    points: number;
+    playerOneId: number;
+    playerTwoId: number;
 }
 
 export interface Game {
     id?: number;
-    lineUpOne?: LineUp[];
-    lineUpTwo?: LineUp[];
     result?: string;
+    lineUpOne?: LineUp;
+    lineUpTwo?: LineUp;
 }
 
 export interface LineUp {
-    player?: Player,
-    position?: string
+    points: number;
+    players: PlayerPosition[];
+}
+
+export interface PlayerPosition {
+    id: number;
+    position: string;
 }

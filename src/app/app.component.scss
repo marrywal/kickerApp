@@ -1,6 +1,41 @@
-#header {
-    a {
-        padding: 5px 10px;
-        color: #fff;
+@import "../style/colors";
+
+// #header {
+//     a {
+//         padding: 5px 10px;
+//         color: #fff;
+//     }
+//     .active {
+//         color: black;
+//     }
+// }
+
+.headerbar {
+    background-color: $mayflower-blue;
+    padding: 16px 25px;
+    border-bottom: 5px solid $mayflower-blue;
+
+    .box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
+    .right a {
+        font-size: 14px;
+        box-sizing: border-box;
+        color: #fff;
+        padding: 17px 25px;
+        &:hover {
+            border-bottom: 5px solid $mayflower-orange;
+        }
+
+        &.active {
+            border-bottom: 5px solid $mayflower-orange;
+            background-color: rgba(255, 255, 255, 0.164);
+        }
+    }
+}
+
+.menu-spacer {
+    flex: 1 1 auto;
 }

@@ -1,0 +1,125 @@
+[
+    {
+      "id": 1,
+      "date": "2021-09-21T11:59:32.038Z",
+      "city": "München",
+      "mode": "BestOf3",
+      "teamOne": {
+        "points": 2,
+        "playerOneId": 1,
+        "playerTwoId": 2
+      },
+      "teamTwo": {
+        "points": 1,
+        "playerOneId": 3,
+        "playerTwoId": 1
+      },
+      "games": [
+        {
+          "id": 1,
+          "lineUpOne": {
+            "points": 10,
+            "players": [
+              {
+                "id": 1,
+                "position": "vorne"
+              },
+              {
+                "id": 2,
+                "position": "hinten"
+              }
+            ]
+          },
+          "lineUpTwo": {
+            "points": 4,
+            "players": [
+              {
+                "id": 3,
+                "position": "vorne"
+              },
+              {
+                "id": 1,
+                "position": "hinten"
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "lineUpOne": {
+            "points": 7,
+            "players": [
+              {
+                "id": 2,
+                "position": "vorne"
+              },
+              {
+                "id": 1,
+                "position": "hinten"
+              }
+            ]
+          },
+          "lineUpTwo": {
+            "points": 10,
+            "players": [
+              {
+                "id": 1,
+                "position": "vorne"
+              },
+              {
+                "id": 3,
+                "position": "hinten"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "2021-09-22T11:23:32.038Z",
+      "city": "Berlin",
+      "mode": "BestOf1",
+      "teamOne": {
+        "points": 1,
+        "playerOneId": 2,
+        "playerTwoId": 3
+      },
+      "teamTwo": {
+        "points": 0,
+        "playerOneId": 1,
+        "playerTwoId": 2
+      },
+      "games": [
+        {
+          "id": 1,
+          "lineUpOne": {
+            "points": 10,
+            "players": [
+              {
+                "id": 2,
+                "position": "vorne"
+              },
+              {
+                "id": 3,
+                "position": "hinten"
+              }
+            ]
+          },
+          "lineUpTwo": {
+            "points": 5,
+            "players": [
+              {
+                "id": 1,
+                "position": "vorne"
+              },
+              {
+                "id": 2,
+                "position": "hinten"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]

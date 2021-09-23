@@ -32,37 +32,20 @@ $kickerApp-theme: mat.define-light-theme(
 // that you are using.
 @include mat.all-component-themes($kickerApp-theme);
 
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
+// -------------------------
 
-html,
-body {
-    height: 100%;
-}
-body {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+@import "./variables";
 
-.content-center {
-    margin: auto;
-    max-width: 1000px;
-}
+// Import functions, variables, and mixins needed by other Bootstrap files
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
-table {
-    width: 100%;
-}
+// Import Bootstrap Reboot
+@import "~bootstrap/scss/root"; // Contains :root CSS variables used by other Bootstrap files
+@import "~bootstrap/scss/reboot";
 
-.header-spacer {
-    flex: 1 1 auto;
-}
+@import "~bootstrap/scss/containers"; // Add .container and .container-fluid classes
+@import "~bootstrap/scss/grid"; // Add the grid system
 
-a {
-    text-decoration: none;
-}
-
-li {
-    list-style-type: none;
-}
+@import "./globals";

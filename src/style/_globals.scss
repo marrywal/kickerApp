@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+    &.mat-button, &.mat-raised-button, &.mat-fab, &.mat-mini-fab, &.mat-list-item {
+      &:hover {
+        color: currentColor
+      }
+    }
+  }
+
+.content-center {
+    margin: auto;
+    max-width: 1000px;
+}
+
+table {
+    width: 100%;
+}
+
+.header-spacer {
+    flex: 1 1 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.filterbar {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    p {
+        margin-right: 15px;
+    }
+}

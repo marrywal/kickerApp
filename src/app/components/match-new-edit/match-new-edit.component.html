@@ -1,0 +1,88 @@
+<div>
+    <h2>
+        {{matchId > 0 ? 'Match bearbeiten' : 'Neues Match'}}
+    </h2>
+</div>
+
+<mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
+    <mat-step [stepControl]="detailsFormGroup" label="Match definieren">
+        <form [formGroup]="detailsFormGroup">
+            <mat-form-field appearance="fill">
+                <mat-label>Datum auswählen</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Standort</mat-label>
+                <!-- TODO: dropdown mit cities -->
+                <input matInput placeholder="Standort" formControlName="city" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Modus</mat-label>
+                <!-- TODO: dropdown mit modi -->
+                <input matInput placeholder="Modus" formControlName="mode" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Weiter</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="teamOneFormGroup" label="Team 1 - Spieler auswählen">
+        <form [formGroup]="teamOneFormGroup">
+            <mat-form-field appearance="fill">
+                <mat-label>Spieler 1</mat-label>
+                <input matInput formControlName="playerOne" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Spieler 2</mat-label>
+                <input matInput formControlName="playerTwo" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Zurück</button>
+                <button mat-button matStepperNext>Weiter</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="teamTwoFormGroup" label="Team 2 - Spieler auswählen">
+        <form [formGroup]="teamTwoFormGroup">
+            <mat-form-field appearance="fill">
+                <mat-label>Spieler 1</mat-label>
+                <input matInput formControlName="playerOne" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Spieler 2</mat-label>
+                <input matInput formControlName="playerTwo" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Zurück</button>
+                <button mat-button matStepperNext>Weiter</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="gamesFormGroup" label="Spiel hinzufügen">
+        <form [formGroup]="gamesFormGroup">
+            <p>TBD</p>
+            <mat-form-field appearance="fill">
+                <mat-label>TBD</mat-label>
+                <input matInput formControlName="tbd" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Zurück</button>
+                <button mat-button matStepperNext (click)="createEditMatch()">Speichern</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Glückwunsch!</ng-template>
+        <p>Glückwunsch - Team 1 hat gewonnen :) </p>
+        <div>
+            <button mat-button (click)="goToMatches()">Schließen</button>
+        </div>
+    </mat-step>
+
+    <!-- Icon overrides. -->
+    <ng-template matStepperIcon="edit">
+        <mat-icon>check</mat-icon>
+    </ng-template>
+</mat-stepper>
