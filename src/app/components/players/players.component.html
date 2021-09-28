@@ -5,35 +5,31 @@
     Neuer Spieler
   </button>
 
-  <table mat-table [dataSource]="playersList" class="mat-elevation-z8" id="playersList">
+  <table mat-table #playerSort="matSort" matSort [dataSource]="playersList" class="mat-elevation-z8" id="playersList">
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">{{element.name}}</td>
     </ng-container>
-  
+
     <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef>Standort</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Standort</th>
       <td mat-cell *matCellDef="let element">{{element.city}}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let row" >
-           <button mat-button (click)="createEditPlayer(row)">
-            <mat-icon>edit</mat-icon>
-           </button>
-           <button mat-button (click)="deletePlayer(row)">
-            <mat-icon>delete</mat-icon>
-           </button>
+      <td mat-cell *matCellDef="let row">
+        <button mat-button (click)="createEditPlayer(row)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button (click)="deletePlayer(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="tableHeader"></tr>
-    <tr
-        mat-row
-        [class.row-is-clicked]="clickedRows.has(row)"
-        *matRowDef="let row; columns: tableHeader;"
-    ></tr>
+
+    <tr mat-header-row *matHeaderRowDef="tableHeader; sticky: true"></tr>
+    <tr mat-row [class.row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: tableHeader;"></tr>
   </table>
 
   <!-- //TODO: add loading spinner -->
@@ -42,5 +38,5 @@
   <mat-progress-spinner 
     color="primary" 
     mode="indeterminate">
-  </mat-progress-spinner>
-</div> -->
+  </mat-progress-spinner> -->
+</div>

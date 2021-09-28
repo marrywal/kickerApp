@@ -41,6 +41,10 @@ export class MatchComponent implements OnInit {
 
   @ViewChild(MatTable) table!: MatTable<Match>;
 
+   // Idee: pro Spalte button mit "Spiel hinzufügen" 
+  //  als shortcut wenn match noch nicht die anzahl der spiele hat, 
+  //  die im modus definiert wurden
+
   constructor(
     public dialog: MatDialog,
     private matchService: MatchService,
@@ -48,7 +52,7 @@ export class MatchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadMatches(); // TODO: fill table
+    this.loadMatches();
     this.loadPlayers();
   }
 

@@ -4,22 +4,14 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
-
+import { getCities } from 'src/assets/data/cityData';
+import { getModes } from 'src/assets/data/modeData';
+import { PlayerService } from 'src/app/services/player/player.service';
+import { Player } from 'src/interfaces/player';
+import { DateFormat } from 'src/interfaces/dateFormat';
 
 @Component({
   selector: 'app-match-new-edit',
@@ -32,12 +24,21 @@ export const MY_FORMATS = {
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
 
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: MAT_DATE_FORMATS, useValue: DateFormat },
   ],
 })
 export class MatchNewEditComponent implements OnInit {
 
   matchId: number = 0;
+  cities: string[] = [];
+  modes: string[] = [];
+
+  playerFilter: { // TODO:  <- umbenennen
+    onePlayerOne?: Observable<Player[]>,
+    onePlayerTwo?: Observable<Player[]>,
+    twoPlayerOne?: Observable<Player[]>,
+    twoPlayerTwo?: Observable<Player[]>
+  } = {};
 
   stepperOrientation: Observable<StepperOrientation>;
   detailsFormGroup: FormGroup;
@@ -48,33 +49,44 @@ export class MatchNewEditComponent implements OnInit {
   constructor(
     public breakpointObserver: BreakpointObserver,
     private _formBuilder: FormBuilder,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private playerService: PlayerService
   ) {
+
+    this.matchId = this.actRoute.snapshot.params.id;
+
     this.detailsFormGroup = this._formBuilder.group({
       date: [new Date(), Validators.required],
       city: ['', Validators.required],
       mode: ['', Validators.required],
     });
     this.teamOneFormGroup = this._formBuilder.group({
-      playerOne: ['', Validators.required],
-      playerTwo: ['', Validators.required]
+      onePlayerOne: ['', Validators.required],
+      onePlayerTwo: ['', Validators.required]
     });
     this.teamTwoFormGroup = this._formBuilder.group({
-      playerOne: ['', Validators.required],
-      playerTwo: ['', Validators.required]
+      twoPlayerOne: ['', Validators.required],
+      twoPlayerTwo: ['', Validators.required]
     });
-    this.gamesFormGroup = this._formBuilder.group({
+    this.gamesFormGroup = this._formBuilder.group({ // TODO: weiter hier
       tbd: ['', Validators.required] // TODO: tbd
     });
 
-    this.matchId = this.actRoute.snapshot.params.id;
-
     this.stepperOrientation = breakpointObserver.observe('(min-width: 800px)')
       .pipe(map(({ matches }) => matches ? 'horizontal' : 'vertical'));
+
   }
 
   ngOnInit(): void {
-    
+    this.cities = getCities();
+    this.modes = getModes();
+
+    this.playerFilter = {
+      onePlayerOne: this.filterPlayer(this.teamOneFormGroup, 'onePlayerOne'),
+      onePlayerTwo: this.filterPlayer(this.teamOneFormGroup, 'onePlayerTwo'),
+      twoPlayerOne: this.filterPlayer(this.teamTwoFormGroup, 'twoPlayerOne'),
+      twoPlayerTwo: this.filterPlayer(this.teamTwoFormGroup, 'twoPlayerTwo')
+    }
   }
 
   createEditMatch(): void {
@@ -83,6 +95,28 @@ export class MatchNewEditComponent implements OnInit {
 
   goToMatches(): void {
     console.log('go to matches')
+  }
+
+  private filter(val: any): Observable<any[]> {
+    return this.playerService.getPlayers()
+      .pipe(
+        map(response => response.filter(player => {
+          return player.name?.toLowerCase().includes(val.toLowerCase())
+        }))
+      )
+  }
+
+  private filterPlayer(teamFormGroup: FormGroup, player: any): Observable<Player[]> {
+    return teamFormGroup.valueChanges
+      .pipe(
+        startWith(''),
+        debounceTime(400),
+        distinctUntilChanged(),
+        switchMap(val => {
+          console.log(val)
+          return this.filter(val[player] || '')
+        })
+      );
   }
 
 }

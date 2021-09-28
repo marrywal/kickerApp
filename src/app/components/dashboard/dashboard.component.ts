@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { getCities } from 'src/assets/data/cityData';
 import { PlayerService } from '../../services/player/player.service';
@@ -12,6 +13,8 @@ export class DashboardComponent implements OnInit {
 
   tableBestPerson: any;
   isLoading = true;
+
+  @ViewChild('tableBestPersonSort') tableBestPersonSort!: MatSort;
 
   constructor(public playerService: PlayerService) { }
 
@@ -28,6 +31,7 @@ export class DashboardComponent implements OnInit {
     this.playerService.getPlayers().subscribe(d => {
       this.tableBestPerson.dataSource = new MatTableDataSource(d);
       this.isLoading = false;
+      this.tableBestPerson.dataSource.sort = this.tableBestPersonSort;
     }, () => this.isLoading = false);
   }
 

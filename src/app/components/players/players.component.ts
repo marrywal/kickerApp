@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatTable } from '@angular/material/table';
-import { Observable } from 'rxjs';
+import { MatSort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Player } from 'src/interfaces/player';
 import { PlayerService } from '../../services/player/player.service';
 import { PlayersDialogComponent } from './players-dialog/players-dialog.component';
@@ -13,7 +13,7 @@ import { PlayersDialogComponent } from './players-dialog/players-dialog.componen
 })
 export class PlayersComponent implements OnInit {
 
-  playersList: Player[] = [];
+  playersList: any;
   isLoading = true;
   tableHeader: string[] = [
     'name',
@@ -24,17 +24,20 @@ export class PlayersComponent implements OnInit {
   clickedRows = new Set<Player>();
   newPlayer: any;
 
-  @ViewChild(MatTable) table!: MatTable<Player>;
+  @ViewChild('playerSort') playerSort!: MatSort; // TODO: sorting not works after page change
 
   constructor(public dialog: MatDialog, private playerService: PlayerService) { }
 
   ngOnInit(): void {
+    console.log(this.playersList);
     this.loadPlayers();
   }
 
   loadPlayers() {
     this.playerService.getPlayers().subscribe(d => {
-      this.playersList = d;
+      this.playersList = new MatTableDataSource(d);
+      this.playersList.sort = this.playerSort;
+      console.log(this.playersList);
       this.isLoading = false;
     }, () => this.isLoading = false);
   }

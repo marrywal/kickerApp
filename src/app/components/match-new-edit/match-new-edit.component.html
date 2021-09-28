@@ -4,7 +4,7 @@
     </h2>
 </div>
 
-<mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
+<mat-stepper linear class="example-stepper" [orientation]="(stepperOrientation | async)!">
     <mat-step [stepControl]="detailsFormGroup" label="Match definieren">
         <form [formGroup]="detailsFormGroup">
             <mat-form-field appearance="fill">
@@ -15,13 +15,15 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Standort</mat-label>
-                <!-- TODO: dropdown mit cities -->
-                <input matInput placeholder="Standort" formControlName="city" required>
+                <mat-select matInput placeholder="Standort" formControlName="city" required>
+                    <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
+                </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Modus</mat-label>
-                <!-- TODO: dropdown mit modi -->
-                <input matInput placeholder="Modus" formControlName="mode" required>
+                <mat-select matInput placeholder="Modus" formControlName="mode" required>
+                    <mat-option *ngFor="let mode of modes" value="{{mode}}">{{mode}}</mat-option>
+                </mat-select>
             </mat-form-field>
             <div>
                 <button mat-button matStepperNext>Weiter</button>
@@ -32,11 +34,21 @@
         <form [formGroup]="teamOneFormGroup">
             <mat-form-field appearance="fill">
                 <mat-label>Spieler 1</mat-label>
-                <input matInput formControlName="playerOne" required>
+                <input type="text" formControlName="onePlayerOne" required matInput [matAutocomplete]="onePlayerOneAuto">
+                <mat-autocomplete #onePlayerOneAuto="matAutocomplete">
+                    <mat-option *ngFor="let player of playerFilter.onePlayerOne | async" [value]="player.name">
+                        {{player.name}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Spieler 2</mat-label>
-                <input matInput formControlName="playerTwo" required>
+                <input type="text" formControlName="onePlayerTwo" required matInput [matAutocomplete]="onePlayerTwoAuto">
+                <mat-autocomplete #onePlayerTwoAuto="matAutocomplete">
+                    <mat-option *ngFor="let player of playerFilter.onePlayerTwo | async" [value]="player.name">
+                        {{player.name}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
             <div>
                 <button mat-button matStepperPrevious>Zurück</button>
@@ -48,11 +60,21 @@
         <form [formGroup]="teamTwoFormGroup">
             <mat-form-field appearance="fill">
                 <mat-label>Spieler 1</mat-label>
-                <input matInput formControlName="playerOne" required>
+                <input type="text" formControlName="twoPlayerOne" required matInput [matAutocomplete]="twoPlayerOneAuto">
+                <mat-autocomplete #twoPlayerOneAuto="matAutocomplete">
+                    <mat-option *ngFor="let player of playerFilter.twoPlayerOne | async" [value]="player.name">
+                        {{player.name}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Spieler 2</mat-label>
-                <input matInput formControlName="playerTwo" required>
+                <input type="text" formControlName="twoPlayerTwo" required matInput [matAutocomplete]="twoPlayerTwoAuto">
+                <mat-autocomplete #twoPlayerTwoAuto="matAutocomplete">
+                    <mat-option *ngFor="let player of playerFilter.twoPlayerTwo | async" [value]="player.name">
+                        {{player.name}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
             <div>
                 <button mat-button matStepperPrevious>Zurück</button>
