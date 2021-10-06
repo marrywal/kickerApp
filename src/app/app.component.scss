@@ -1,41 +1,124 @@
 @import "../style/colors";
 
-// #header {
-//     a {
-//         padding: 5px 10px;
-//         color: #fff;
-//     }
-//     .active {
-//         color: black;
-//     }
-// }
+$nav-height: 59px;
+$transparent: rgba(255, 255, 255, 0.164);
+$hover-ease: all 0.2s ease-in-out;
 
-.headerbar {
+.nav {
+    height: $nav-height;
+    padding: 17px 25px;
+    width: 100%;
     background-color: $mayflower-blue;
-    padding: 16px 25px;
-    border-bottom: 5px solid $mayflower-blue;
+    border-bottom: 2px solid $mayflower-blue;
+    position: relative;
 
-    .box {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    #nav-check {
+        display: none;
     }
-    .right a {
-        font-size: 14px;
-        box-sizing: border-box;
-        color: #fff;
-        padding: 17px 25px;
-        &:hover {
-            border-bottom: 5px solid $mayflower-orange;
-        }
 
-        &.active {
-            border-bottom: 5px solid $mayflower-orange;
-            background-color: rgba(255, 255, 255, 0.164);
+    .nav-header {
+        display: inline;
+
+        .nav-logo {
+            display: inline-block;
+            font-size: 22px;
+            color: #fff;
+        }
+    }
+
+    .nav-btn {
+        display: none;
+    }
+
+    #nav-links {
+        display: inline;
+        float: right;
+        margin-top: -17px;
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            font-size: 14px;
+            padding: 17px 25px;
+
+            &:hover {
+                border-bottom: 5px solid $mayflower-orange;
+            }
+
+            &.active {
+                border-bottom: 5px solid $mayflower-orange;
+                background-color: $transparent;
+            }
         }
     }
 }
 
-.menu-spacer {
-    flex: 1 1 auto;
+@media (max-width: 600px) { // TODO: richtiger breakpoint??
+    .nav {
+        .nav-btn {
+            display: inline-block;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+
+            label {
+                display: inline-block;
+                height: $nav-height;
+                padding: 18px;
+                transition: $hover-ease;
+
+                span {
+                    display: block;
+                    width: 25px;
+                    height: 10px;
+                    border-top: 2.5px solid #eee;
+                }
+
+                &:hover {
+                    background-color: $transparent;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        #nav-links {
+            z-index: 120;
+            position: absolute;
+            display: block;
+            width: 100%;
+            background-color: $mayflower-blue-light;
+            height: 0px;
+            transition: $hover-ease;
+            overflow: hidden;
+            top: $nav-height + 17px;
+            left: 0px;
+
+            a {
+                display: block;
+                width: 100%;
+                transition: $hover-ease;
+
+                &:hover {
+                    background-color: $transparent;
+                    border: 0;
+                }
+    
+                &.active {
+                    background-color: $transparent;
+                    border: 0;
+                }
+            }
+        }
+    }
+    
+    .open {
+        height: calc(100vh - 59px) !important;
+    }
+ 
+    .nav #nav-check:checked ~ .nav-btn > label {
+        background-color: $transparent;
+    }
+
+
 }

@@ -8,7 +8,12 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'kickerApp';
+  open = false;
 
   constructor(public router: Router){}
+
+  openNav() {
+    this.open = !this.open;
+  }
 
 }

@@ -1,5 +1,3 @@
-import { Player } from "./player";
-
 export interface Match {
     id: number;
     date?: Date;
@@ -11,24 +9,55 @@ export interface Match {
 }
 
 export interface Team {
-    points: number;
-    playerOneId: number;
-    playerTwoId: number;
+    points?: number;
+    playerOne?: string;
+    playerTwo?: string;
 }
 
 export interface Game {
     id?: number;
-    result?: string;
     lineUpOne?: LineUp;
     lineUpTwo?: LineUp;
 }
 
 export interface LineUp {
-    points: number;
-    players: PlayerPosition[];
+    points?: number;
+    players?: PlayerPosition[];
 }
 
 export interface PlayerPosition {
-    id: number;
-    position: string;
+    name?: string;
+    position?: string;
+}
+
+export function emptyGame() {
+    return {
+        id: 0,
+        lineUpOne: {
+            points: 0,
+            players: [
+                {
+                    name: '',
+                    position: ''
+                },
+                {
+                    name: '',
+                    position: ''
+                }
+            ]
+        },
+        lineUpTwo: {
+            points: 0,
+            players: [
+                {
+                    name: '',
+                    position: ''
+                },
+                {
+                    name: '',
+                    position: ''
+                }
+            ]
+        }
+    }
 }

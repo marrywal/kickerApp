@@ -15,26 +15,27 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Standort</mat-label>
-                <mat-select matInput placeholder="Standort" formControlName="city" required>
+                <mat-select matInput formControlName="city" required>
                     <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Modus</mat-label>
-                <mat-select matInput placeholder="Modus" formControlName="mode" required>
+                <mat-select matInput formControlName="mode" required>
                     <mat-option *ngFor="let mode of modes" value="{{mode}}">{{mode}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <div>
-                <button mat-button matStepperNext>Weiter</button>
+                <button mat-button matStepperNext (click)="setGamesByMode()">Weiter</button>
             </div>
         </form>
     </mat-step>
+
     <mat-step [stepControl]="teamOneFormGroup" label="Team 1 - Spieler auswählen">
         <form [formGroup]="teamOneFormGroup">
             <mat-form-field appearance="fill">
                 <mat-label>Spieler 1</mat-label>
-                <input type="text" formControlName="onePlayerOne" required matInput [matAutocomplete]="onePlayerOneAuto">
+                <input type="text" formControlName="playerOne" required matInput [matAutocomplete]="onePlayerOneAuto">
                 <mat-autocomplete #onePlayerOneAuto="matAutocomplete">
                     <mat-option *ngFor="let player of playerFilter.onePlayerOne | async" [value]="player.name">
                         {{player.name}}
@@ -43,7 +44,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Spieler 2</mat-label>
-                <input type="text" formControlName="onePlayerTwo" required matInput [matAutocomplete]="onePlayerTwoAuto">
+                <input type="text" formControlName="playerTwo" required matInput [matAutocomplete]="onePlayerTwoAuto">
                 <mat-autocomplete #onePlayerTwoAuto="matAutocomplete">
                     <mat-option *ngFor="let player of playerFilter.onePlayerTwo | async" [value]="player.name">
                         {{player.name}}
@@ -56,11 +57,12 @@
             </div>
         </form>
     </mat-step>
+
     <mat-step [stepControl]="teamTwoFormGroup" label="Team 2 - Spieler auswählen">
         <form [formGroup]="teamTwoFormGroup">
             <mat-form-field appearance="fill">
                 <mat-label>Spieler 1</mat-label>
-                <input type="text" formControlName="twoPlayerOne" required matInput [matAutocomplete]="twoPlayerOneAuto">
+                <input type="text" formControlName="playerOne" required matInput [matAutocomplete]="twoPlayerOneAuto">
                 <mat-autocomplete #twoPlayerOneAuto="matAutocomplete">
                     <mat-option *ngFor="let player of playerFilter.twoPlayerOne | async" [value]="player.name">
                         {{player.name}}
@@ -69,7 +71,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Spieler 2</mat-label>
-                <input type="text" formControlName="twoPlayerTwo" required matInput [matAutocomplete]="twoPlayerTwoAuto">
+                <input type="text" formControlName="playerTwo" required matInput [matAutocomplete]="twoPlayerTwoAuto">
                 <mat-autocomplete #twoPlayerTwoAuto="matAutocomplete">
                     <mat-option *ngFor="let player of playerFilter.twoPlayerTwo | async" [value]="player.name">
                         {{player.name}}
@@ -82,19 +84,101 @@
             </div>
         </form>
     </mat-step>
+
     <mat-step [stepControl]="gamesFormGroup" label="Spiel hinzufügen">
         <form [formGroup]="gamesFormGroup">
-            <p>TBD</p>
-            <mat-form-field appearance="fill">
-                <mat-label>TBD</mat-label>
-                <input matInput formControlName="tbd" required>
-            </mat-form-field>
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel *ngFor="let game of games; index as gi" [expanded]="gameStep === gi"
+                    (opened)="setStep(gi)">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Spiel {{ game.id }}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <span *ngIf="game.lineUpOne?.points && game.lineUpTwo?.points">
+                                Ergebnis: {{ game.lineUpOne?.points }} : {{ game.lineUpTwo?.points }}
+                            </span>
+                            <span *ngIf="!game.lineUpOne?.points && !game.lineUpTwo?.points">
+                                Daten eintragen
+                            </span>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div>
+                        Team 1:
+                        {{ teamOneFormGroup.value.playerOne }}
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Position</mat-label>
+                            <mat-select matInput formControlName="onePlayerOnePosition" required>
+                                <mat-option *ngFor="let position of positions" value="{{position}}">{{position}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        {{ teamOneFormGroup.value.playerTwo }}
+                        <mat-form-field appearance="fill">
+                            <mat-label>Position</mat-label>
+                            <mat-select matInput formControlName="onePlayerTwoPosition" required>
+                                <mat-option *ngFor="let position of positions" value="{{position}}">{{position}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        Team 2:
+                        {{ teamTwoFormGroup.value.playerOne }}
+                        <mat-form-field appearance="fill">
+                            <mat-label>Position</mat-label>
+                            <mat-select matInput formControlName="twoPlayerOnePosition" required>
+                                <mat-option *ngFor="let position of positions" value="{{position}}">{{position}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        {{ teamTwoFormGroup.value.playerTwo }}
+                        <mat-form-field appearance="fill">
+                            <mat-label>Position</mat-label>
+                            <mat-select matInput formControlName="twoPlayerTwoPosition" required>
+                                <mat-option *ngFor="let position of positions" value="{{position}}">{{position}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        Punkte Team 1:
+                        <mat-form-field appearance="fill">
+                            <mat-label>Punkte</mat-label>
+                            <input matInput autocomplete="off" formControlName="onePoints" type="number" min="0"
+                                max="10">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        Punkte Team 2:
+                        <mat-form-field appearance="fill">
+                            <mat-label>Punkte</mat-label>
+                            <input matInput autocomplete="off" formControlName="twoPoints" type="number" min="0"
+                                max="10">
+                        </mat-form-field>
+                    </div>
+
+                    <mat-action-row>
+                        <button mat-button *ngIf="gi > 0" (click)="prevStep()">Vorheriges Spiel</button>
+                        <button mat-button color="primary" (click)="nextStep()">
+                            {{ (gi === games.length - 1) ? 'Fertig!' : 'Nächstes Spiel' }}
+                        </button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
             <div>
                 <button mat-button matStepperPrevious>Zurück</button>
                 <button mat-button matStepperNext (click)="createEditMatch()">Speichern</button>
             </div>
         </form>
     </mat-step>
+
     <mat-step>
         <ng-template matStepLabel>Glückwunsch!</ng-template>
         <p>Glückwunsch - Team 1 hat gewonnen :) </p>
@@ -103,7 +187,6 @@
         </div>
     </mat-step>
 
-    <!-- Icon overrides. -->
     <ng-template matStepperIcon="edit">
         <mat-icon>check</mat-icon>
     </ng-template>

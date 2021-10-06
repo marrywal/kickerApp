@@ -8,10 +8,12 @@ import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'r
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { getCities } from 'src/assets/data/cityData';
-import { getModes } from 'src/assets/data/modeData';
+import { getModes, getNumberByMode } from 'src/assets/data/modeData';
 import { PlayerService } from 'src/app/services/player/player.service';
 import { Player } from 'src/interfaces/player';
 import { DateFormat } from 'src/interfaces/dateFormat';
+import { Match, Game, emptyGame } from 'src/interfaces/match';
+import { getPositions } from 'src/assets/data/positionData';
 
 @Component({
   selector: 'app-match-new-edit',
@@ -32,6 +34,9 @@ export class MatchNewEditComponent implements OnInit {
   matchId: number = 0;
   cities: string[] = [];
   modes: string[] = [];
+  positions: string[] = [];
+  games: Game[] = [];
+  gameStep = 0;
 
   playerFilter: { // TODO:  <- umbenennen
     onePlayerOne?: Observable<Player[]>,
@@ -61,15 +66,20 @@ export class MatchNewEditComponent implements OnInit {
       mode: ['', Validators.required],
     });
     this.teamOneFormGroup = this._formBuilder.group({
-      onePlayerOne: ['', Validators.required],
-      onePlayerTwo: ['', Validators.required]
+      playerOne: ['', Validators.required],
+      playerTwo: ['', Validators.required]
     });
     this.teamTwoFormGroup = this._formBuilder.group({
-      twoPlayerOne: ['', Validators.required],
-      twoPlayerTwo: ['', Validators.required]
+      playerOne: ['', Validators.required],
+      playerTwo: ['', Validators.required]
     });
-    this.gamesFormGroup = this._formBuilder.group({ // TODO: weiter hier
-      tbd: ['', Validators.required] // TODO: tbd
+    this.gamesFormGroup = this._formBuilder.group({ // TODO: tbd
+      onePlayerOnePosition: ['', Validators.required],
+      onePlayerTwoPosition: ['', Validators.required],
+      onePoints: [null, Validators.required],
+      twoPlayerOnePosition: ['', Validators.required],
+      twoPlayerTwoPosition: ['', Validators.required],
+      twoPoints: [null, Validators.required],
     });
 
     this.stepperOrientation = breakpointObserver.observe('(min-width: 800px)')
@@ -80,16 +90,59 @@ export class MatchNewEditComponent implements OnInit {
   ngOnInit(): void {
     this.cities = getCities();
     this.modes = getModes();
+    this.positions = getPositions();
 
     this.playerFilter = {
-      onePlayerOne: this.filterPlayer(this.teamOneFormGroup, 'onePlayerOne'),
-      onePlayerTwo: this.filterPlayer(this.teamOneFormGroup, 'onePlayerTwo'),
-      twoPlayerOne: this.filterPlayer(this.teamTwoFormGroup, 'twoPlayerOne'),
-      twoPlayerTwo: this.filterPlayer(this.teamTwoFormGroup, 'twoPlayerTwo')
+      onePlayerOne: this.filterPlayer(this.teamOneFormGroup, 'playerOne'),
+      onePlayerTwo: this.filterPlayer(this.teamOneFormGroup, 'playerTwo'),
+      twoPlayerOne: this.filterPlayer(this.teamTwoFormGroup, 'playerOne'),
+      twoPlayerTwo: this.filterPlayer(this.teamTwoFormGroup, 'playerTwo'),
     }
   }
 
+  setGamesByMode() {
+    const modeNumber = getNumberByMode(this.detailsFormGroup.value.mode);
+    for (let i = 0; i < modeNumber; i++) {
+      let game = emptyGame();
+      game.id = i+1;
+      this.games.push(game);
+    }
+    console.log(this.games);
+  }
+
+  setStep(index: number) {
+    this.gameStep = index;
+  }
+
+  nextStep() {
+    this.gameStep++;
+  }
+
+  prevStep() {
+    this.gameStep--;
+  }
+
+
+
   createEditMatch(): void {
+    console.log(this.playerFilter.onePlayerOne);
+    let match: Match = {
+      id: this.matchId,
+      date: this.detailsFormGroup.value.date,
+      city: this.detailsFormGroup.value.city,
+      mode: this.detailsFormGroup.value.mode,
+      teamOne: {
+        points: 0,
+        playerOne: this.teamOneFormGroup.value.playerOne,
+        playerTwo: this.teamOneFormGroup.value.playerTwo
+      },
+      teamTwo: {
+        points: 0,
+        playerOne: this.teamTwoFormGroup.value.playerOne,
+        playerTwo: this.teamTwoFormGroup.value.playerTwo
+      }, // TODO: add games
+    };
+    console.log(match);
     console.log('match saved')
   }
 
@@ -97,27 +150,27 @@ export class MatchNewEditComponent implements OnInit {
     console.log('go to matches')
   }
 
-  private filter(val: any): Observable<any[]> {
-    return this.playerService.getPlayers()
-      .pipe(
-        map(response => response.filter(player => {
-          return player.name?.toLowerCase().includes(val.toLowerCase())
-        }))
-      )
-  }
-
-  private filterPlayer(teamFormGroup: FormGroup, player: any): Observable<Player[]> {
+  private filterPlayer(teamFormGroup: FormGroup, player: any, playerId?: any): Observable<Player[]> {
     return teamFormGroup.valueChanges
       .pipe(
         startWith(''),
         debounceTime(400),
         distinctUntilChanged(),
         switchMap(val => {
-          console.log(val)
           return this.filter(val[player] || '')
         })
       );
   }
+
+  private filter(val: any): Observable<Player[]> {
+    return this.playerService.getPlayers()
+      .pipe(
+        map(response => response.filter(player => {
+          return player.name?.toLowerCase().includes(val.toLowerCase());
+        }))
+      );
+  }
+
 
 }
 

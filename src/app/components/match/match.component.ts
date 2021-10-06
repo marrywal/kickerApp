@@ -71,11 +71,6 @@ export class MatchComponent implements OnInit {
     }, () => this.isLoading = false);
   }
 
-  getPlayerById(id: number) {
-    const player = this.playersList.find(player => player.id === id);
-    return player?.name;
-  }
-
   // createEditMatch(match?: Match) {
   //   const newMatch: Match = {
   //     id: 0
