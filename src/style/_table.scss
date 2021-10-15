@@ -1,0 +1,33 @@
+table {
+    width: 100% !important;
+    // th .mat-sort-header-content, th {
+    //     font-weight: 600 !important; // TODO: add this??
+    // }
+    td.mat-cell {
+        border-bottom-width: 0;
+    }
+    tbody tr:nth-child(odd) {
+        background: #ececec; // TODO: find solution for matches table
+    }
+    &#playersList {
+        th:last-of-type {
+            width: 105px;
+        }
+    }
+
+    &#matchesList {
+        th:last-of-type {
+            width: 145px;
+        }
+    }
+}
+
+.tableBox {
+    max-height: calc(100vh - 150px);
+    overflow: auto;
+}
+
+#dashboard .tableBox {
+    max-height: calc(100vh - 250px); // TODO: correct size
+    overflow: auto;
+}

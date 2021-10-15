@@ -13,6 +13,7 @@ export class AppComponent {
   constructor(public router: Router){}
 
   openNav() {
+    console.log('open');
     this.open = !this.open;
   }
 

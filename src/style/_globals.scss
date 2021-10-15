@@ -16,6 +16,8 @@ body {
 }
 
 a {
+    text-decoration: none;
+
     &.mat-button,
     &.mat-raised-button,
     &.mat-fab,
@@ -25,48 +27,6 @@ a {
             color: currentColor;
         }
     }
-}
-
-table {
-    width: 100% !important;
-    // th .mat-sort-header-content, th {
-    //     font-weight: 600 !important; // TODO: add this??
-    // }
-    td.mat-cell {
-        border-bottom-width: 0;
-    }
-    tbody tr:nth-child(odd) {
-        background: #ececec; // TODO: find solution for matches table
-    }
-    &#playersList {
-        th:last-of-type {
-            width: 105px;
-        }
-    }
-
-    &#matchesList {
-        th:last-of-type {
-            width: 145px;
-        }
-    }
-}
-
-.tableBox {
-    max-height: calc(100vh - 150px);
-    overflow: auto;
-}
-
-#dashboard .tableBox {
-    max-height: calc(100vh - 250px); // TODO: correct size
-    overflow: auto;
-}
-
-.header-spacer {
-    flex: 1 1 auto;
-}
-
-a {
-    text-decoration: none;
 }
 
 li {
@@ -89,23 +49,22 @@ li {
     padding: 15px 0;
 }
 
-$icon-size: 18px;
 
 mat-icon.small {
-    font-size: $icon-size;
-    width: $icon-size;
-    height: $icon-size;
+    font-size: $icon-size-small;
+    width: $icon-size-small;
+    height: $icon-size-small;
 }
 
 .mat-icon-button {
     &:hover {
         &.default .mat-icon {
-            transition: $hover-ease;
+            transition: $transition-ease;
             color: $dark-secondary-text;
         }
 
         &.delete .mat-icon {
-            transition: $hover-ease;
+            transition: $transition-ease;
             color: $mayflower-red;
         }
     }
