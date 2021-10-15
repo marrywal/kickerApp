@@ -16,6 +16,10 @@ $transparent: rgba(255, 255, 255, 0.164);
     .nav-header {
         display: inline;
 
+        &:hover {
+            cursor: default;
+        }
+
         .nav-logo {
             display: inline-block;
             font-size: 22px;
@@ -24,6 +28,10 @@ $transparent: rgba(255, 255, 255, 0.164);
                 width: 35px;
                 margin: -6px 5px 0 0;
             }
+        }
+
+        p {
+            display: inline-block;
         }
     }
 
