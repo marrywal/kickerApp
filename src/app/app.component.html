@@ -6,13 +6,8 @@
     </div>
   </div>
   <div class="nav-btn">
-    <!-- <label for="nav-check" (click)="openNav()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label> -->
     <div class="menu-icon">
-      <input class="menu-icon__cheeckbox" type="checkbox" (click)="openNav()" />
+      <input class="menu-icon__cheeckbox" [ngClass]="{'open' : open}" type="checkbox" (click)="openNav()" />
       <div>
         <span></span>
         <span></span>
@@ -26,7 +21,11 @@
     <a routerLink="/players" routerLinkActive="active" (click)="openNav()">Spieler</a>
     <!-- <a><mat-icon>person</mat-icon></a>
     <a><mat-icon>settings</mat-icon></a> -->
+    <div class="nav-footer">
+      &#169; 2021 Mayflower
+    </div>
   </div>
+
 </div>
 
 <router-outlet></router-outlet>
