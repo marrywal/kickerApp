@@ -22,7 +22,8 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Standort</mat-label>
                     <mat-select matInput #input>
-                        <mat-option (click)="applyFilterTableBestPerson($event, input.value)" value="">Alle</mat-option>
+                        <mat-option (click)="applyFilterTableBestPerson($event, input.value)" value="">Alle
+                        </mat-option>
                         <mat-option *ngFor="let city of tableBestPerson.cities"
                             (click)="applyFilterTableBestPerson($event, input.value)" value="{{city}}">{{city}}
                         </mat-option>
@@ -30,7 +31,7 @@
                 </mat-form-field>
             </div>
 
-            <div class="tableBox mat-elevation-z8">
+            <div class="tableBox mat-elevation-z2">
                 <table mat-table #tableBestPersonSort="matSort" matSort [dataSource]="tableBestPerson.dataSource">
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef> Name </th>

@@ -11,7 +11,7 @@ body {
     height: 100%;
 }
 
-.row > * {
+.row > button {
     width: auto;
 }
 
@@ -49,6 +49,10 @@ li {
     padding: 15px 0;
 }
 
+.cardRow {
+    padding: 15px 0;
+}
+
 
 mat-icon.small {
     font-size: $icon-size-small;
@@ -68,4 +72,9 @@ mat-icon.small {
             color: $mayflower-red;
         }
     }
+}
+
+.stepperButtons {
+    margin-top: 10px;
+    margin-bottom: -24px;
 }

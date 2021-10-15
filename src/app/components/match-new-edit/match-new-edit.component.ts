@@ -102,6 +102,7 @@ export class MatchNewEditComponent implements OnInit {
 
   setGamesByMode() {
     const modeNumber = getNumberByMode(this.detailsFormGroup.value.mode);
+    this.games = [];
     for (let i = 0; i < modeNumber; i++) {
       let game = emptyGame();
       game.id = i+1;

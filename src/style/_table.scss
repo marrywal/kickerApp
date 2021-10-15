@@ -3,19 +3,26 @@ table {
     // th .mat-sort-header-content, th {
     //     font-weight: 600 !important; // TODO: add this??
     // }
+
     td.mat-cell {
         border-bottom-width: 0;
     }
-    tbody tr:nth-child(odd) {
-        background: #ececec; // TODO: find solution for matches table
-    }
+
     &#playersList {
         th:last-of-type {
             width: 105px;
         }
     }
 
+    &:not(#matchesList) tbody tr:nth-child(odd) {
+        background: #ececec;
+    }
+
     &#matchesList {
+        tbody tr:nth-child(4n-3) {
+            background: #ececec;
+        }
+
         th:last-of-type {
             width: 145px;
         }
