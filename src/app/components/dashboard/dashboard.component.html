@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="dashboard">
     <div class="row">
         Anzeige: Spieler v | Standort v
     </div>
@@ -24,39 +24,42 @@
                     <mat-select matInput #input>
                         <mat-option (click)="applyFilterTableBestPerson($event, input.value)" value="">Alle</mat-option>
                         <mat-option *ngFor="let city of tableBestPerson.cities"
-                            (click)="applyFilterTableBestPerson($event, input.value)" value="{{city}}">{{city}}</mat-option>
+                            (click)="applyFilterTableBestPerson($event, input.value)" value="{{city}}">{{city}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
 
-            <table mat-table #tableBestPersonSort="matSort" matSort [dataSource]="tableBestPerson.dataSource" class="mat-elevation-z8">
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
+            <div class="tableBox mat-elevation-z8">
+                <table mat-table #tableBestPersonSort="matSort" matSort [dataSource]="tableBestPerson.dataSource">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="city">
-                    <th mat-header-cell *matHeaderCellDef> Standort </th>
-                    <td mat-cell *matCellDef="let element"> {{element.city}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="city">
+                        <th mat-header-cell *matHeaderCellDef> Standort </th>
+                        <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="wins">
-                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Gewonnen </th>
-                    <td mat-cell *matCellDef="let element"> {{element.wins}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="wins">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Gewonnen </th>
+                        <td mat-cell *matCellDef="let element"> {{element.wins}} </td>
+                    </ng-container>
 
-                <ng-container matColumnDef="losts">
-                    <th mat-header-cell mat-sort-header *matHeaderCellDef> Verloren </th>
-                    <td mat-cell *matCellDef="let element"> {{element.losts}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="losts">
+                        <th mat-header-cell mat-sort-header *matHeaderCellDef> Verloren </th>
+                        <td mat-cell *matCellDef="let element"> {{element.losts}} </td>
+                    </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="tableBestPerson.tableHeader"></tr>
-                <tr mat-row *matRowDef="let row; columns: tableBestPerson.tableHeader;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="tableBestPerson.tableHeader"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableBestPerson.tableHeader;"></tr>
 
-                <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">Keine Ergebnisse für "{{input}}"</td>
-                </tr>
-            </table>
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">Keine Ergebnisse für "{{input}}"</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

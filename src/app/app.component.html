@@ -1,16 +1,23 @@
 <div class="nav" id="header" *ngIf="router.url != '/start'">
-  <input type="checkbox" id="nav-check">
   <div class="nav-header">
     <div class="nav-logo" routerLink="/start">
-      Mayflower Logo
+      <img src="../../assets/images/mayflower_segel_transparent.png" alt="Mayflower Logo">
+      Kicker-App
     </div>
   </div>
   <div class="nav-btn">
-    <label for="nav-check" (click)="openNav()">
+    <!-- <label for="nav-check" (click)="openNav()">
       <span></span>
       <span></span>
       <span></span>
-    </label>
+    </label> -->
+    <div class="menu-icon">
+      <input class="menu-icon__cheeckbox" type="checkbox" (click)="openNav()" />
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   </div>
 
   <div id="nav-links" [ngClass]="{'open' : open}">

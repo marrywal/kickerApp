@@ -2,19 +2,14 @@
 
 $nav-height: 59px;
 $transparent: rgba(255, 255, 255, 0.164);
-$hover-ease: all 0.2s ease-in-out;
 
 .nav {
     height: $nav-height;
     padding: 17px 25px;
     width: 100%;
-    background-color: $mayflower-blue;
-    border-bottom: 2px solid $mayflower-blue;
+    background-color: $mayflower-gray;
+    border-bottom: 2px solid $mayflower-gray;
     position: relative;
-
-    #nav-check {
-        display: none;
-    }
 
     .nav-header {
         display: inline;
@@ -23,6 +18,10 @@ $hover-ease: all 0.2s ease-in-out;
             display: inline-block;
             font-size: 22px;
             color: #fff;
+            img {
+                width: 35px;
+                margin: -6px 5px 0 0;
+            }
         }
     }
 
@@ -54,7 +53,8 @@ $hover-ease: all 0.2s ease-in-out;
     }
 }
 
-@media (max-width: 600px) { // TODO: richtiger breakpoint??
+@media (max-width: 600px) {
+    // TODO: richtiger breakpoint??
     .nav {
         .nav-btn {
             display: inline-block;
@@ -62,24 +62,7 @@ $hover-ease: all 0.2s ease-in-out;
             right: 0px;
             top: 0px;
 
-            label {
-                display: inline-block;
-                height: $nav-height;
-                padding: 18px;
-                transition: $hover-ease;
 
-                span {
-                    display: block;
-                    width: 25px;
-                    height: 10px;
-                    border-top: 2.5px solid #eee;
-                }
-
-                &:hover {
-                    background-color: $transparent;
-                    cursor: pointer;
-                }
-            }
         }
 
         #nav-links {
@@ -87,7 +70,7 @@ $hover-ease: all 0.2s ease-in-out;
             position: absolute;
             display: block;
             width: 100%;
-            background-color: $mayflower-blue-light;
+            background-color: $mayflower-gray;
             height: 0px;
             transition: $hover-ease;
             overflow: hidden;
@@ -103,7 +86,7 @@ $hover-ease: all 0.2s ease-in-out;
                     background-color: $transparent;
                     border: 0;
                 }
-    
+
                 &.active {
                     background-color: $transparent;
                     border: 0;
@@ -111,14 +94,74 @@ $hover-ease: all 0.2s ease-in-out;
             }
         }
     }
-    
+
     .open {
         height: calc(100vh - 59px) !important;
     }
- 
-    .nav #nav-check:checked ~ .nav-btn > label {
+}
+
+// TODO: change state after menu click
+// burger icon
+.menu-icon {
+	position: relative;
+	width: 62px;
+	height: 59px;
+	cursor: pointer;
+    &:hover {
         background-color: $transparent;
+        cursor: pointer;
     }
 
+	.menu-icon__cheeckbox {
+		display: block;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		cursor: pointer;
+		z-index: 2;
+		-webkit-touch-callout: none;
+		position: absolute;
+		opacity: 0;
+	}
+	div {
+		margin: auto;
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		width: 22px;
+		height: 12px;
+	}
+	span {
+		position: absolute;
+		display: block;
+		height: 2px;
+		background-color: #fff;
+		border-radius: 1px;
+		transition: all 0.2s cubic-bezier(0.1, 0.82, 0.76, 0.965);
 
+		&:first-of-type {
+            width: 26px;
+			top: 0;
+		}
+		&:last-of-type {
+            width: 12px;
+			bottom: 0;
+		}
+	}
+	&.active,
+	.menu-icon__cheeckbox:checked + div {
+		span {
+        width: 22px;
+			&:first-of-type {
+				transform: rotate(45deg);
+				top: 5px;
+			}
+			&:last-of-type {
+				transform: rotate(-45deg);
+				bottom: 5px;
+			}
+		}
+	}
 }
