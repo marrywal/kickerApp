@@ -76,13 +76,13 @@ export class MatchNewEditComponent implements OnInit {
     this.gamesFormGroup = this._formBuilder.group({ // TODO: tbd
       onePlayerOnePosition: ['', Validators.required],
       onePlayerTwoPosition: ['', Validators.required],
-      onePoints: [null, Validators.required],
+      onePoints: ['', Validators.required],
       twoPlayerOnePosition: ['', Validators.required],
       twoPlayerTwoPosition: ['', Validators.required],
-      twoPoints: [null, Validators.required],
+      twoPoints: ['', Validators.required],
     });
 
-    this.stepperOrientation = breakpointObserver.observe('(min-width: 800px)')
+    this.stepperOrientation = breakpointObserver.observe('(min-width: 768px)')
       .pipe(map(({ matches }) => matches ? 'horizontal' : 'vertical'));
 
   }
@@ -105,7 +105,7 @@ export class MatchNewEditComponent implements OnInit {
     this.games = [];
     for (let i = 0; i < modeNumber; i++) {
       let game = emptyGame();
-      game.id = i+1;
+      game.id = i + 1;
       this.games.push(game);
     }
     console.log(this.games);
@@ -121,6 +121,17 @@ export class MatchNewEditComponent implements OnInit {
 
   prevStep() {
     this.gameStep--;
+  }
+
+  addGame(index: number, game: Game) {
+    // TODO: problem -> werte werden für alle (auch noch leere games übernommen)
+    this.games[index].lineUpOne.points = this.gamesFormGroup.value.onePoints;
+    this.games[index].lineUpTwo.points = this.gamesFormGroup.value.twoPoints;
+
+    this.gamesFormGroup.value.onePoints = '';
+    this.gamesFormGroup.value.twoPoints = '';
+
+    console.log(this.games[index]);
   }
 
 
@@ -145,6 +156,7 @@ export class MatchNewEditComponent implements OnInit {
     };
     console.log(match);
     console.log('match saved')
+    console.log(this.gamesFormGroup.value.onePoints)
   }
 
   goToMatches(): void {

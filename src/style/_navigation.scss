@@ -1,4 +1,4 @@
-@import "../style/colors";
+@import "../style/variables";
 
 $nav-height: 59px;
 $nav-padding: 17px 25px;
@@ -67,8 +67,7 @@ $transparent: rgba(255, 255, 255, 0.164);
     display: none;
 }
 
-@media (max-width: 600px) {
-    // TODO: richtiger breakpoint??
+@media (max-width: $break-sm) {
     .nav {
         .nav-btn {
             display: inline-block;
