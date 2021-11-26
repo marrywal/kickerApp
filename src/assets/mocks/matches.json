@@ -82,13 +82,13 @@
       "mode": "BestOf1",
       "teamOne": {
         "points": 1,
-        "playerOneId": 2,
-        "playerTwoId": 3
+        "playerOne": "Max Mustermann",
+        "playerTwo": "Max Mustermann"
       },
       "teamTwo": {
         "points": 0,
-        "playerOneId": 1,
-        "playerTwoId": 2
+        "playerOne": "Max Mustermann",
+        "playerTwo": "Max Mustermann"
       },
       "games": [
         {
@@ -97,11 +97,11 @@
             "points": 10,
             "players": [
               {
-                "id": 2,
+                "name": "Max Mustermann",
                 "position": "vorne"
               },
               {
-                "id": 3,
+                "name": "Max Mustermann",
                 "position": "hinten"
               }
             ]
@@ -110,11 +110,11 @@
             "points": 5,
             "players": [
               {
-                "id": 1,
+                "name": "Max Mustermann",
                 "position": "vorne"
               },
               {
-                "id": 2,
+                "name": "Max Mustermann",
                 "position": "hinten"
               }
             ]

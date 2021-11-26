@@ -1,8 +1,8 @@
 <div class="container matchStepperBox">
     <div class="row cardRow">
         <mat-card class="mat-elevation-z2 noShadow">
-            <!-- <mat-card-subtitle>
-                <mat-icon>{{matchId > 0 ? 'edit' : 'add'}}</mat-icon>
+            <!-- TODO: <mat-card-subtitle>
+                <mat-icon>{{matchId > 0 ? 'edit' : 'add'}}</mat-icon> // _matchService.matchId
                 {{matchId > 0 ? 'Match bearbeiten' : 'Neues Match'}}
             </mat-card-subtitle>
             <mat-card-title>
@@ -13,217 +13,20 @@
 
                 <mat-stepper labelPosition="bottom" linear [orientation]="(stepperOrientation | async)!">
                     <mat-step [stepControl]="detailsFormGroup" label="Match definieren">
-                        <form [formGroup]="detailsFormGroup">
-                            <div class="row">
-                                <div class="col-md-4 col-12">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Datum auswählen</mat-label>
-                                        <input matInput [matDatepicker]="picker" formControlName="date" required>
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Standort</mat-label>
-                                        <mat-select matInput formControlName="city" required>
-                                            <mat-option *ngFor="let city of cities" value="{{city}}">{{city}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Modus</mat-label>
-                                        <mat-select matInput formControlName="mode" required>
-                                            <mat-option *ngFor="let mode of modes" value="{{mode}}">{{mode}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <mat-divider inset></mat-divider>
-                            <div class="stepperButtons">
-                                <button mat-raised-button color="primary" matStepperNext
-                                    (click)="setGamesByMode()">Weiter</button>
-                            </div>
-                        </form>
+                        <step-details></step-details>
                     </mat-step>
 
                     <mat-step [stepControl]="teamOneFormGroup" label="Team 1 - Spieler auswählen">
-                        <form [formGroup]="teamOneFormGroup">
-                            <div class="row">
-                                <div class="col-md-6 col-12">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Spieler 1</mat-label>
-                                        <input type="text" formControlName="playerOne" required matInput
-                                            [matAutocomplete]="onePlayerOneAuto">
-                                        <mat-autocomplete #onePlayerOneAuto="matAutocomplete">
-                                            <mat-option *ngFor="let player of playerFilter.onePlayerOne | async"
-                                                [value]="player.name">
-                                                {{player.name}}
-                                            </mat-option>
-                                        </mat-autocomplete>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Spieler 2</mat-label>
-                                        <input type="text" formControlName="playerTwo" required matInput
-                                            [matAutocomplete]="onePlayerTwoAuto">
-                                        <mat-autocomplete #onePlayerTwoAuto="matAutocomplete">
-                                            <mat-option *ngFor="let player of playerFilter.onePlayerTwo | async"
-                                                [value]="player.name">
-                                                {{player.name}}
-                                            </mat-option>
-                                        </mat-autocomplete>
-                                    </mat-form-field>
-                                </div>
-                                <mat-divider inset></mat-divider>
-                                <div class="stepperButtons">
-                                    <button mat-button matStepperPrevious>Zurück</button>
-                                    <button mat-raised-button color="primary" matStepperNext>Weiter</button>
-                                </div>
-                            </div>
-                        </form>
+                        <step-team-one></step-team-one>
                     </mat-step>
 
                     <mat-step [stepControl]="teamTwoFormGroup" label="Team 2 - Spieler auswählen">
-                        <form [formGroup]="teamTwoFormGroup">
-                            <div class="row">
-                                <div class="col-md-6 col-12">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Spieler 1</mat-label>
-                                        <input type="text" formControlName="playerOne" required matInput
-                                            [matAutocomplete]="twoPlayerOneAuto">
-                                        <mat-autocomplete #twoPlayerOneAuto="matAutocomplete">
-                                            <mat-option *ngFor="let player of playerFilter.twoPlayerOne | async"
-                                                [value]="player.name">
-                                                {{player.name}}
-                                            </mat-option>
-                                        </mat-autocomplete>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Spieler 2</mat-label>
-                                        <input type="text" formControlName="playerTwo" required matInput
-                                            [matAutocomplete]="twoPlayerTwoAuto">
-                                        <mat-autocomplete #twoPlayerTwoAuto="matAutocomplete">
-                                            <mat-option *ngFor="let player of playerFilter.twoPlayerTwo | async"
-                                                [value]="player.name">
-                                                {{player.name}}
-                                            </mat-option>
-                                        </mat-autocomplete>
-                                    </mat-form-field>
-                                </div>
-                                <mat-divider inset></mat-divider>
-                                <div class="stepperButtons">
-                                    <button mat-button matStepperPrevious>Zurück</button>
-                                    <button mat-raised-button color="primary" matStepperNext>Weiter</button>
-                                </div>
-                            </div>
-                        </form>
+                        <step-team-two></step-team-two>
                     </mat-step>
 
                     <mat-step [stepControl]="gamesFormGroup" label="Spiel hinzufügen">
-                        <form [formGroup]="gamesFormGroup">
-                            <!-- TODO: weiter hier: setgamesbymode greift nur bei weiter button, aber nicht bei step wechsel -->
-                            <mat-accordion class="mat-elevation-z0">
-                                <mat-expansion-panel *ngFor="let game of games; index as gi"
-                                    [expanded]="gameStep === gi" (opened)="setStep(gi)" (closed)="addGame(gi, game)">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            Spiel {{ game.id }}
-                                        </mat-panel-title>
-                                        <mat-panel-description>
-                                            <span *ngIf="game.lineUpOne.points !== '' && game.lineUpTwo.points !== ''">
-                                                Ergebnis: <b>{{ game.lineUpOne.points }} : {{ game.lineUpTwo.points }}</b>
-                                            </span>
-                                            <span *ngIf="!game.lineUpOne?.points && !game.lineUpTwo?.points">
-                                                Daten eintragen
-                                            </span>
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
-
-                                    <div>
-                                        Team 1:
-                                        {{ teamOneFormGroup.value.playerOne }}
-
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Position</mat-label>
-                                            <mat-select matInput formControlName="onePlayerOnePosition" required>
-                                                <mat-option *ngFor="let position of positions" value="{{position}}">
-                                                    {{position}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        {{ teamOneFormGroup.value.playerTwo }}
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Position</mat-label>
-                                            <mat-select matInput formControlName="onePlayerTwoPosition" required>
-                                                <mat-option *ngFor="let position of positions" value="{{position}}">
-                                                    {{position}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        Team 2:
-                                        {{ teamTwoFormGroup.value.playerOne }}
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Position</mat-label>
-                                            <mat-select matInput formControlName="twoPlayerOnePosition" required>
-                                                <mat-option *ngFor="let position of positions" value="{{position}}">
-                                                    {{position}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        {{ teamTwoFormGroup.value.playerTwo }}
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Position</mat-label>
-                                            <mat-select matInput formControlName="twoPlayerTwoPosition" required>
-                                                <mat-option *ngFor="let position of positions" value="{{position}}">
-                                                    {{position}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        Punkte Team 1:
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Punkte</mat-label>
-                                            <input matInput formControlName="onePoints" required autocomplete="off"
-                                                formControlName="onePoints" type="number" min="0" max="10">
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        Punkte Team 2:
-                                        <mat-form-field appearance="fill">
-                                            <mat-label>Punkte</mat-label>
-                                            <input matInput formControlName="twoPoints" required autocomplete="off"
-                                                formControlName="twoPoints" type="number" min="0" max="10">
-                                        </mat-form-field>
-                                    </div>
-
-                                    <mat-action-row>
-                                        <button mat-button *ngIf="gi > 0" (click)="prevStep()">Vorheriges Spiel</button>
-                                        <button mat-button color="primary" (click)="nextStep()">
-                                            {{ (gi === games.length - 1) ? 'Fertig!' : 'Nächstes Spiel' }}
-                                        </button>
-                                    </mat-action-row>
-                                </mat-expansion-panel>
-                            </mat-accordion>
-                            <div class="stepperButtons">
-                                <button mat-button matStepperPrevious>Zurück</button>
-                                <button mat-raised-button color="primary" matStepperNext
-                                    (click)="createEditMatch()">Speichern</button>
-                            </div>
-                        </form>
+                        <step-games></step-games>
+                        
                     </mat-step>
 
                     <mat-step>

@@ -61,3 +61,24 @@ export function emptyGame() {
         }
     }
 }
+
+export function emptyMatch() {
+    let games = emptyGame();
+    return {
+        id: 0,
+        date: null,
+        city: '',
+        mode: '',
+        teamOne: {
+            points: 0,
+            playerOne: '',
+            playerTwo: '',
+        },
+        teamTwo: {
+            points: 0,
+            playerOne: '',
+            playerTwo: '',
+        },
+        games: games
+    }
+}

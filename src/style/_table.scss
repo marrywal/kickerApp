@@ -1,4 +1,4 @@
-table {
+table:not(.mat-calendar-table) {
     width: 100% !important;
     // th .mat-sort-header-content, th {
     //     font-weight: 600 !important; // TODO: add this??
@@ -19,7 +19,8 @@ table {
     }
 
     &#matchesList {
-        tbody tr:nth-child(4n-3) {
+        tbody tr:nth-child(4n-3),
+        tbody tr:nth-child(4n-2) {
             background: #ececec;
         }
 
@@ -27,6 +28,14 @@ table {
             width: 145px;
         }
     }
+}
+
+.table-center {
+    text-align: center !important;
+}
+
+.table-right {
+    text-align: right !important;
 }
 
 .tableBox {

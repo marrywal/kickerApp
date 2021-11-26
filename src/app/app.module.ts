@@ -16,6 +16,10 @@ import { PlayerService } from './services/player/player.service';
 import { MatchService } from './services/match/match.service';
 import { MatchNewEditComponent } from './components/match-new-edit/match-new-edit.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { StepDetailsComponent } from './components/match-new-edit/step-details/step-details.component';
+import { StepTeamOneComponent } from './components/match-new-edit/step-team-one/step-team-one.component';
+import { StepTeamTwoComponent } from './components/match-new-edit/step-team-two/step-team-two.component';
+import { StepGamesComponent } from './components/match-new-edit/step-games/step-games.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     StartComponent,
     PlayersDialogComponent,
     MatchNewEditComponent,
+    StepDetailsComponent,
+    StepTeamOneComponent,
+    StepTeamTwoComponent,
+    StepGamesComponent,
   ],
   imports: [
     BrowserModule,

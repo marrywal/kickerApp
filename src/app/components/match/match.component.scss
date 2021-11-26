@@ -3,6 +3,9 @@
 // table collapse row
 tr.detail-row {
     height: 0;
+    box-shadow: inset 0px 1px 2px 0px rgb(0 0 0 / 12%), 
+    inset 0px 2px 2px 0px rgb(0 0 0 / 14%), 
+    inset 0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 
 .element-row td {
@@ -16,11 +19,9 @@ tr.detail-row {
 
 .element-description {
     width: 100%;
-    background-color: $dark-focused;
-    margin-bottom: 15px;
 
     .details {
-        padding: 10px;
+        padding: 15px;
         display: flex;
         justify-content: space-around;
         align-items: center;
