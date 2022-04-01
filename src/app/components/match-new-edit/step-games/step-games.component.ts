@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatchService } from 'src/app/services/match/match.service';
-import { getNumberByMode } from 'src/assets/data/modeData';
+import { getModes, getNumberByMode } from 'src/assets/data/modeData';
 import { getPositions } from 'src/assets/data/positionData';
 import { emptyGame, Game } from 'src/interfaces/match';
 
@@ -16,24 +16,31 @@ export class StepGamesComponent implements OnInit {
   gamesFormGroup: FormGroup;
   gameStep = 0;
   positions: string[] = [];
+  modes: string[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
     public _matchService: MatchService
   ) {
-    this.gamesFormGroup = this._formBuilder.group({});
+    this.gamesFormGroup = this._formBuilder.group({
+      mode: ['', Validators.required],
+    });
 
     this._matchService.stepReady(this.gamesFormGroup, 'games');
   }
 
   ngOnInit(): void {
     this.positions = getPositions();
-    this.setGamesByMode();
+    this.modes = getModes();
+
+    this.gamesFormGroup.get("mode")?.valueChanges.subscribe(selectedValue => {
+      console.log(selectedValue)
+      this.setGamesByMode(selectedValue);
+    })
   }
 
-  setGamesByMode() {
-    // const modeNumber = getNumberByMode(this._matchService.mainForm.value.mode); TODO:get selected mode
-    const modeNumber = 5;
+  setGamesByMode(modeValue: string) {
+    const modeNumber = getNumberByMode(modeValue);
 
     this.games = [];
     for (let i = 0; i < modeNumber; i++) {

@@ -1,5 +1,13 @@
 <form [formGroup]="gamesFormGroup">
-    <!-- TODO: weiter hier: setgamesbymode greift nur bei weiter button, aber nicht bei step wechsel -->
+    <div class="col-md-4 col-12">
+        <mat-form-field appearance="fill">
+            <mat-label>Modus</mat-label>
+            <mat-select matInput formControlName="mode" required>
+                <mat-option *ngFor="let mode of modes" value="{{mode}}">{{mode}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <mat-accordion class="mat-elevation-z0">
         <mat-expansion-panel *ngFor="let game of games; let $index=index" [expanded]="gameStep === $index"
             (opened)="setStep($index)">
@@ -23,12 +31,19 @@
                 <div class="col-md-4 col-12">
                     {{ _matchService.mainForm.value.teamOne.playerOne }}
 
+                    <label id="position-one">Position</label>
+                    <mat-radio-group aria-labelledby="position-one" formControlName="onePlayerOnePosition{{$index}}">
+                        <mat-radio-button *ngFor="let position of positions" [value]="position">
+                            {{position}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
                     <mat-form-field appearance="fill">
                         <mat-label>Position</mat-label>
                         <mat-select matInput formControlName="onePlayerOnePosition{{$index}}" required>
-                            <mat-option *ngFor="let position of positions" value="{{position}}">
+                            <mat-radio-button *ngFor="let position of positions" value="{{position}}">
                                 {{position}}
-                            </mat-option>
+                            </mat-radio-button>
                         </mat-select>
                     </mat-form-field>
                 </div>

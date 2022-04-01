@@ -38,8 +38,7 @@ export class MatchService {
       form.valueChanges.subscribe(val => {
         this.mainForm.value.id = this._actRoute.snapshot.children[0].params.id,
           this.mainForm.value.date = val.date,
-          this.mainForm.value.city = val.city,
-          this.mainForm.value.mode = val.mode
+          this.mainForm.value.city = val.city
       })
     );
     this.stepTeamOneSource.subscribe(form =>
@@ -56,10 +55,11 @@ export class MatchService {
     );
     this.stepGamesSource.subscribe(form =>
       form.valueChanges.subscribe(val => {
+        this.mainForm.value.mode = val.mode;
         let games = [];
         let teamOnePoints = 0;
         let teamTwoPoints = 0;
-        let modeNumber = getNumberByMode(this.mainForm.value.mode)
+        let modeNumber = getNumberByMode(this.mainForm.value.mode);
         for (let i = 0; i < modeNumber; i++) {
           let game = emptyGame();
           game.id = i + 1;
@@ -121,7 +121,6 @@ export class MatchService {
     //   id: this._actRoute.snapshot.params.id,
     //   date: stepDetails.date,
     //   city: stepDetails.city,
-    //   mode: stepDetails.mode,
     //   teamOne: {
     //     points: 0,
     //     playerOne: stepTeamOne.playerOne,
